@@ -40,6 +40,29 @@
             Console.WriteLine("\nDetailed Report:");
             PrintReport(catalog, p => Console.WriteLine( $"[{p.Category}] {p.Name} | Price: ${p.Price} | Stock: {p.Stock}"));
 
+
+            #region sumary list
+            List<string> summaries = TransformProducts(catalog, p => $"{p.Name} (${p.Price})");
+            Console.WriteLine("\nSummary List:");
+
+            foreach (string summary in summaries)
+            {
+                Console.WriteLine(summary);
+            }
+            #endregion
+
+            #region price label
+
+            List<string> labels = TransformProducts(catalog,p => $"{p.Name}: {(p.Price > 100 ? "Expensive" : "Affordable")}");
+            Console.WriteLine("\nPrice Labels:");
+
+            foreach (string label in labels)
+            {
+                Console.WriteLine(label);
+            }
+
+            #endregion
+
             Console.Read();
         }
         
@@ -73,5 +96,21 @@
         }
 
         #endregion
-    }
+
+        #region 3.2
+
+        static List<string> TransformProducts(List<Product> products, Func<Product, string> transform)
+        {
+            List<string> results = new List<string>();
+
+            foreach (Product p in products)
+            {
+                results.Add(transform(p));
+            }
+
+            return results;
+        }
+
+        #endregion
+        }
 }
