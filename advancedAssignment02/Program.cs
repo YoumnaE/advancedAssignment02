@@ -61,7 +61,21 @@
                 Console.WriteLine(label);
             }
 
+
             #endregion
+
+            #region low alert
+
+            List<Product> lowStockProducts = FilterProducts(catalog, p => p.Stock < 20);
+
+            foreach (Product p in lowStockProducts)
+            {
+                Console.WriteLine(
+                    $"[LOW STOCK] {p.Name}: only {p.Stock} left!");
+            }
+
+            #endregion
+
 
             Console.Read();
         }
@@ -112,5 +126,23 @@
         }
 
         #endregion
+
+        #region 3.3
+
+        static List<Product> FilterProducts(List<Product> products,Predicate<Product> condition){
+            List<Product> results = new List<Product>();
+
+            foreach (Product p in products)
+            {
+                if (condition(p))
+                {
+                    results.Add(p);
+                }
+            }
+
+            return results;
         }
+
+        #endregion
+    }
 }
