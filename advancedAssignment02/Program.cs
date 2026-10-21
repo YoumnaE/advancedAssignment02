@@ -32,11 +32,20 @@
             PrintProducts("In Stock", inStock);
             PrintProducts("Clothing under $100", clothing);
 
+            // short Report
+            Console.WriteLine("\nShort Report:");
+            PrintReport(catalog, p => Console.WriteLine($"{p.Name} - ${p.Price}"));
+
+            // detailed report
+            Console.WriteLine("\nDetailed Report:");
+            PrintReport(catalog, p => Console.WriteLine( $"[{p.Category}] {p.Name} | Price: ${p.Price} | Stock: {p.Stock}"));
+
             Console.Read();
         }
-        static List<Product> SearchProducts(
-        List<Product> products,
-        Func<Product, bool> filter)
+        
+        #region task 01
+
+        static List<Product> SearchProducts(List<Product> products, Func<Product, bool> filter)
         {
             return products.Where(filter).ToList();
         }
@@ -50,5 +59,19 @@
                 Console.WriteLine($"{p.Name} - ${p.Price} - Stock: {p.Stock}");
             }
         }
+
+        #endregion
+        
+        #region task 3.1
+
+        static void PrintReport(List<Product> products, Action<Product> action)
+        {
+            foreach (Product p in products)
+            {
+                action(p);
+            }
+        }
+
+        #endregion
     }
 }
